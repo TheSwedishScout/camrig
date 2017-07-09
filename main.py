@@ -21,7 +21,7 @@ def move(dis, timeToNextImg = 2):
 		print (seq[curentStep])
 		#match seq to pins to move
 		for pig in range(4):
-                GPIO.output(config.controlPin[pig], seq[curentStep][pig])
+                	GPIO.output(config.controlPin[pig], seq[curentStep][pig])
 		if curentStep == 3:
 			curentStep = 0
 		else:
@@ -33,13 +33,14 @@ def move(dis, timeToNextImg = 2):
 
 
 def movePic():
-	totalDis = 1000
-	pictures = 240
+	totalDis = 100
+	pictures = 10
 	interval = 2
 	distansmoved = 0
 
 	while (distansmoved < totalDis):
 		#ta bild
+		
 		print (distansmoved)
 		time.sleep(2)
 		distansToMove = totalDis/pictures
@@ -48,20 +49,14 @@ def movePic():
 			distansmoved += distansToMove
 		elif (distansmoved < totalDis):
 			move(totalDis-distansmoved, interval)
+			distansmoved += totalDis-distansmoved
 		else:
 			return True
-movePic()
-
+	GPIO.cleanup()
 def init():
 	for pin in config.controlPin:
 		GPIO.setup(pin,GPIO.OUT)
 		GPIO.output(pin,0)
-	
+	movePic()
+init()
 
-
-
-#få uppgifter från användare, distans, antal bilder, tid
-#move funktionen får distansen mellan var bild
-# 1 bild
-# 2 vänta bildens slutartid
-# 3 Röra sig i den hastighet som krävs för att stanna i tid för att ta nesta bild
