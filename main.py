@@ -1,7 +1,8 @@
 import math
 import time
 import config
-
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
 global curentStep
 curentStep = 0
 #distance in mm
@@ -19,6 +20,8 @@ def move(dis, timeToNextImg = 2):
 		global curentStep
 		print (seq[curentStep])
 		#match seq to pins to move
+		for pig in range(4):
+                GPIO.output(config.controlPin[pig], seq[curentStep][pig])
 		if curentStep == 3:
 			curentStep = 0
 		else:
@@ -48,6 +51,14 @@ def movePic():
 		else:
 			return True
 movePic()
+
+def init():
+	for pin in config.controlPin:
+		GPIO.setup(pin,GPIO.OUT)
+		GPIO.output(pin,0)
+	
+
+
 
 #få uppgifter från användare, distans, antal bilder, tid
 #move funktionen får distansen mellan var bild
