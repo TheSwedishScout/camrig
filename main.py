@@ -63,8 +63,9 @@ def init():
 	global app
 	@app.route("/")
 	def index():
+		movePic()
 		return "working"
 	app.run(host= '0.0.0.0', debug=True)
-	movePic()
 init()
+
 
