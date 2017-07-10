@@ -2,6 +2,8 @@ import math
 import time
 import config
 import RPi.GPIO as GPIO
+from flask import Flask
+app = Flask(__name__)
 GPIO.setmode(GPIO.BCM)
 global curentStep
 curentStep = 0
@@ -57,6 +59,12 @@ def init():
 	for pin in config.controlPin:
 		GPIO.setup(pin,GPIO.OUT)
 		GPIO.output(pin,0)
+
+	global app
+	@app.route("/")
+	def index():
+		return "working"
+	app.run(host= '0.0.0.0', debug=True)
 	movePic()
 init()
 
