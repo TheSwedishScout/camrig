@@ -10,6 +10,7 @@ curentStep = 0
 #distance in mm
 def move(dis, timeToNextImg = 2):
 	#0,07568359375 mm /step
+	GPIO.setmode(GPIO.BCM)
 	steps = math.floor(dis / 0.07568359375)
 	sleepTime = timeToNextImg/steps
 	print (steps)
@@ -23,7 +24,7 @@ def move(dis, timeToNextImg = 2):
 		print (seq[curentStep])
 		#match seq to pins to move
 		for pig in range(4):
-                	GPIO.output(config.controlPin[pig], seq[curentStep][pig])
+			GPIO.output(config.controlPin[pig], seq[curentStep][pig])
 		if curentStep == 3:
 			curentStep = 0
 		else:
@@ -56,6 +57,7 @@ def movePic():
 			return True
 	GPIO.cleanup()
 def init():
+	GPIO.setmode(GPIO.BCM)
 	for pin in config.controlPin:
 		GPIO.setup(pin,GPIO.OUT)
 		GPIO.output(pin,0)

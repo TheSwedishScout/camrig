@@ -1,8 +1,5 @@
 import RPi.GPIO as GPIO
 import time
-
-import RPi.GPIO as GPIO
-import time
 import config
 GPIO.setmode(GPIO.BOARD)
 #button1 = 18
