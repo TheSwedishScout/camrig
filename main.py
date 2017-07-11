@@ -11,6 +11,10 @@ curentStep = 0
 def move(dis, timeToNextImg = 2):
 	#0,07568359375 mm /step
 	GPIO.setmode(GPIO.BCM)
+	for pin in config.controlPin:
+		GPIO.setup(pin,GPIO.OUT)
+		GPIO.output(pin,0)
+		
 	steps = math.floor(dis / 0.07568359375)
 	sleepTime = timeToNextImg/steps
 	print (steps)
@@ -57,10 +61,8 @@ def movePic():
 			return True
 	GPIO.cleanup()
 def init():
-	GPIO.setmode(GPIO.BCM)
-	for pin in config.controlPin:
-		GPIO.setup(pin,GPIO.OUT)
-		GPIO.output(pin,0)
+	
+	
 
 	global app
 	@app.route("/")
